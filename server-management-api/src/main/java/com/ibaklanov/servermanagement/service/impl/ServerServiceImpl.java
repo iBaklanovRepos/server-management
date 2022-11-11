@@ -70,7 +70,7 @@ public class ServerServiceImpl implements ServerService {
     private String getServerImageUrl() {
         String[] imageNames = {"server1.png", "server2.png", "server3.png", "server4.png"};
         return ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/server/image/" + imageNames[new Random().nextInt(imageNames.length)])
+                .path("/servers/image/" + imageNames[new Random().nextInt(imageNames.length)])
                 .toUriString();
     }
 }

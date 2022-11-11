@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +26,8 @@ public class ServerController {
     private final ServerService serverService;
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getServers() {
+    public ResponseEntity<Response> getServers() throws InterruptedException {
+        Thread.sleep(300);
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(LocalDateTime.now())
@@ -92,6 +94,6 @@ public class ServerController {
 
     @GetMapping(path = "/image/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getImage(@PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "Downloads/images/" + fileName));
+        return Files.readAllBytes(ResourceUtils.getFile("classpath:" + fileName).toPath());
     }
 }
